@@ -4,7 +4,7 @@ Formula:
 
 m g S
 --------
-K ||suma Si||
+K ||sum Si||
 */
 
 
@@ -55,7 +55,7 @@ for(i in lines) {
  
 				break;
 				
-			// assert a load
+			// assert load
 			case CMD_ASSERTLOAD:
 
 				var result = options.load * 9.81 * options.surface * Math.cos(options.angle * (Math.PI / 180)) / KS;
