@@ -4,7 +4,7 @@ Formula:
 
 m g S
 --------
-K ||V||
+K ||suma Si||
 */
 
 
@@ -15,7 +15,7 @@ CMD_DEFINEBEAM = "DEFINEBEAM"
 
 COMMANDS = [CMD_ASSERTLOAD, CMD_DEFINEBEAM]
 
-var KV = 0;
+var KS = 0;
 
 var cfgFileName = process.argv[2]
 var lines = fs.readFileSync(cfgFileName).toString().split("\n");
@@ -44,10 +44,10 @@ for(i in lines) {
 			case CMD_DEFINEBEAM:
 	
 				if (options.cylinder !== undefined) {
-					KV += 3.14 * options.cylinder.r * options.cylinder.r * options.cylinder.h * options.material.K;
+					KS += 3.14 * options.cylinder.r * options.cylinder.r * options.material.K;
 				}			
 				else if (options.block !== undefined) {
-					KV += options.block.w * options.block.h * options.block.d * options.material.K;
+					KS += options.block.w * options.block.d * options.material.K;
 				}
 				else {
 					console.log("Unknown shape of a beam");
@@ -57,8 +57,8 @@ for(i in lines) {
 				
 			// assert a load
 			case CMD_ASSERTLOAD:
-			
-				var result = options.load * 9.81 * options.surface / KV;
+
+				var result = options.load * 9.81 * options.surface * Math.cos(options.angle * (Math.PI / 180)) / KS;
 				console.log("Result: " + result);
 				if (result < 1) {
 					console.log("OK");
